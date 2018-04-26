@@ -1,4 +1,5 @@
 class WikisController < ApplicationController
+  include ApplicationHelper
   def index
      @wikis = Wiki.all
   end
@@ -20,6 +21,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.find(params[:id])
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
+    @wiki.assign_attributes(wiki_params)
 
     if @wiki.save
       flash[:notice] = "Wiki was updated."
@@ -31,7 +33,7 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = Wiki.new
+    @wiki = Wiki.new(wiki_params)
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
 
