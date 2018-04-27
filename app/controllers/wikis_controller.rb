@@ -19,8 +19,6 @@ class WikisController < ApplicationController
 
   def update
     @wiki = Wiki.find(params[:id])
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
     @wiki.assign_attributes(wiki_params)
 
     if @wiki.save
@@ -34,8 +32,6 @@ class WikisController < ApplicationController
 
   def create
     @wiki = Wiki.new(wiki_params)
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
 
     if @wiki.save
       flash[:notice] = "Wiki was saved."
@@ -56,4 +52,14 @@ class WikisController < ApplicationController
       render :show
     end
   end
+
+  private
+      # Using a private method to encapsulate the permissible parameters
+      # is just a good pattern since you'll be able to reuse the same
+      # permit list between create and update. Also, you can specialize
+      # this method with per-user checking of permissible attributes.
+      def wiki_params
+        params.require(:wiki).permit(:title, :body)
+      end
+
 end
