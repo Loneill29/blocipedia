@@ -1,14 +1,12 @@
 class User < ApplicationRecord
-  after_initialize { self.role ||= :standard }
+
+  has_many :wikis, dependent: :destroy
+
   before_save { self.email = email.downcase if email.present? }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-
-  validates :name, length: { minimum: 1, maximum: 100 }, presence: true
-
-  validates :password, presence: true, length: { minimum: 6 }, if: "password_digest.nil?"
   validates :password, length: { minimum: 6 }, allow_blank: true
 
   validates :email,
@@ -16,6 +14,14 @@ class User < ApplicationRecord
              uniqueness: { case_sensitive: false },
              length: { minimum: 3, maximum: 254 }
 
-enum role: [:standard]
+  after_initialize :initialize_role
+
+  enum role: [:standard, :premium, :admin]
+
+  private
+
+  def initialize_role
+    self.role ||= :standard
+  end
 
 end
