@@ -1,17 +1,10 @@
 class ApplicationPolicy
-<<<<<<< HEAD
-  attr_reader :user, :record
 
-  def initialize(user, record)
-    @user = user
-    @record = record
-=======
   attr_reader :user, :wiki
 
   def initialize(user, wiki)
     @user = user
     @wiki = wiki
->>>>>>> user-roles
   end
 
   def index?
@@ -19,11 +12,7 @@ class ApplicationPolicy
   end
 
   def show?
-<<<<<<< HEAD
-    scope.where(:id => record.id).exists?
-=======
     scope.where(:id => wiki.id).exists?
->>>>>>> user-roles
   end
 
   def create?
@@ -47,11 +36,7 @@ class ApplicationPolicy
   end
 
   def scope
-<<<<<<< HEAD
-    Pundit.policy_scope!(user, record.class)
-=======
     Pundit.policy_scope!(user, wiki.class)
->>>>>>> user-roles
   end
 
   class Scope
