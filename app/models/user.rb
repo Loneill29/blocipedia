@@ -1,9 +1,13 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  has_many :wikis, dependent: :destroy
+
+  before_save { self.email = email.downcase if email.present? }
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+<<<<<<< HEAD
   has_many :wikis, dependent: :destroy
 
   validates :name, length: { minimum: 1, maximum: 100 }, presence: true
@@ -15,4 +19,23 @@ class User < ApplicationRecord
            presence: true,
            uniqueness: { case_sensitive: false },
            length: { minimum: 3, maximum: 254 }
+=======
+  validates :password, length: { minimum: 6 }, allow_blank: true
+
+  validates :email,
+             presence: true,
+             uniqueness: { case_sensitive: false },
+             length: { minimum: 3, maximum: 254 }
+
+  after_initialize :initialize_role
+
+  enum role: [:standard, :premium, :admin]
+
+  private
+
+  def initialize_role
+    self.role ||= :standard
+  end
+
+>>>>>>> user-roles
 end
