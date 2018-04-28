@@ -1,10 +1,10 @@
+
 class ChargesController < ApplicationController
 
 def new
    if current_user.admin?
      redirect_to edit_user_registration_path(current_user)
    end
-
 
    @stripe_btn_data = {
      key: "#{ Rails.configuration.stripe[:publishable_key] }",

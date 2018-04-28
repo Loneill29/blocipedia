@@ -42,3 +42,4 @@ class WikiPolicy < ApplicationPolicy
       @scope = scope
     end
   end
+end
