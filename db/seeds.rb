@@ -1,13 +1,4 @@
 require 'random_data'
-
-50.times do
-   Wiki.create!(
-     title:  Faker::Friends.character,
-     body:   Faker::Friends.quote
-   )
- end
- wikis = Wiki.all
-
 10.times do
   User.create!(
   email:    Faker::Internet.email,
@@ -16,6 +7,15 @@ require 'random_data'
 end
 users = User.all
 
+50.times do
+   Wiki.create!(
+     user:   users.sample,
+     title:  Faker::Friends.character,
+     body:   Faker::Friends.quote
+   )
+ end
+ wikis = Wiki.all
+ 
  puts "Seed finished"
  puts "#{Wiki.count} wikis created"
  puts "#{User.count} users created"
