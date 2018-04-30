@@ -2,23 +2,17 @@ class WikisController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
 
   def index
-     @wikis = policy_scope(Wiki)
+     @wikis = Wiki.all
   end
 
   def show
-    @wiki = Wiki.find(params[:id])
-
-    if current_user.standard?
-
-    unless (@wiki.private == false) || @wiki.user_id == current_user || current_user.admin?
+    unless (@wiki.private? == true) && current_user.standard?
+      @wiki = Wiki.find(params[:id])
+    else
         flash[:alert] = "You are not authorized to view this wiki."
         redirect_to new_charge_path
       end
-    else
-      flash[:alert] = "You are not authorized to view this wiki."
-      redirect_to new_user_registration_path
     end
-  end
 
   def new
    @wiki = Wiki.new
