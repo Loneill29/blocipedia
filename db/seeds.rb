@@ -8,7 +8,7 @@ require 'random_data'
 end
 
 premium = User.create!(
-  email:    'premium@example.com',
+  email:    'premium2@example.com',
   password: 'password',
   password_confirmation: 'password',
   role:     'premium'
@@ -23,7 +23,7 @@ users = User.all
      body:   Faker::Friends.quote
    )
  end
- 
+
  wikis = Wiki.all
 
  puts "Seed finished"
