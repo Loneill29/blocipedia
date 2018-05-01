@@ -40,8 +40,8 @@ def new
 
  def destroy
  if current_user.transaction do
-   current_user.standard!
    current_user.wikis.update_all(private: false)
+   current_user.standard!
  end
  flash[:notice] = "You have successfully downgraded your account."
  else
