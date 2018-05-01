@@ -38,15 +38,17 @@ def new
      redirect_to new_charge_path
  end
 
-   def destroy
-       customer = Stripe::Customer.retrieve(current_user.stripe_id)
-       if customer.delete
-         flash[:notice] = "Your account has been downgraded to standard."
-         current_user.role = 'standard'
-         current_user.save!
-   redirect_to new_charge_path
+ def destroy
+ if current_user.transaction do
+   current_user.standard!
+   current_user.wikis.update_all(private: false)
  end
+ flash[:notice] = "You have successfully downgraded your account."
+ else
+ flash[:notice] = "There was an error downgrading your account."
  end
+ redirect_to new_charge_path
+end
 
  private
 

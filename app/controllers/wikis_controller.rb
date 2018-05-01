@@ -2,16 +2,15 @@ class WikisController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
 
   def index
-     @wikis = Wiki.all
-  end
+      if current_user.standard?
+        @wikis = Wiki.where(private: false)
+      else
+        @wikis = Wiki.all
+      end
+    end
 
   def show
-    unless (@wiki.private? == true) && current_user.standard?
       @wiki = Wiki.find(params[:id])
-    else
-        flash[:alert] = "You are not authorized to view this wiki."
-        redirect_to new_charge_path
-      end
     end
 
   def new
@@ -24,7 +23,6 @@ class WikisController < ApplicationController
 
   def update
   @wiki = Wiki.find(params[:id])
-  authorize @wiki
   if @wiki.update(wiki_params)
     flash[:notice] = "Wiki was updated."
     redirect_to @wiki
@@ -37,7 +35,6 @@ end
   def create
     @wiki = Wiki.new
     @wiki.assign_attributes(wiki_params)
-    authorize @wiki
 
     if @wiki.save
       flash[:notice] = "Wiki was saved."

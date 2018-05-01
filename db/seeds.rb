@@ -13,7 +13,18 @@ premium = User.create!(
   password_confirmation: 'password',
   role:     'premium'
 )
-
+premium = User.create!(
+  email:    'premium2@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  role:     'premium'
+)
+premium = User.create!(
+  email:    'premium3@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  role:     'premium'
+)
 users = User.all
 
 50.times do
@@ -23,7 +34,7 @@ users = User.all
      body:   Faker::Friends.quote
    )
  end
- 
+
  wikis = Wiki.all
 
  puts "Seed finished"
