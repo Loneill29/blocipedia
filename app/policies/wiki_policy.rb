@@ -7,8 +7,8 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def index?
-    user.present?
-  end
+     true
+   end
 
   def show?
     scope.where(:id => wiki.id).exists?
