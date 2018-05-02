@@ -6,33 +6,32 @@ class CollaboratorsController < ApplicationController
   def create
     @collaborator_user = User.find_by_email(params[:collaborator])
     @wiki = Wiki.find(params[:wiki_id])
-
     if @wiki.collaborators.exists?(user_id: @collaborator_user.id)
       flash[:notice] = "#{@collaborator_user.email} is already a collaborator."
-      redirect_to edit_wiki_path(@wiki)
+      redirect_to @wiki
     else
-      @collaborator = Collaborator.new(wiki_id: @wiki.id, user_id: @collaborator_user.id)
+      @collaborator = Collaborator.new(user_id: @collaborator_user.id, wiki: @wiki.id)
       if @collaborator.save
-        flash[:notice] = "#{@collaborator_user.email} was added as a collaborator."
-        redirect_to edit_wiki_path(@wiki)
+        flash[:notice] = "Collaborator was saved."
+        redirect_to @wiki
       else
-        flash[:alert] = "There was an error adding this collaborator. Please try again."
-        redirect_to edit_wiki_path(@wiki)
+        flash.now[:alert] = "There was an error saving the collaborator."
+        redirect_to @wiki
       end
     end
   end
 
-  def destroy
-    @wiki = Wiki.find(params[:wiki_id])
-    @collaborator = Collaborator.find(params[:id])
-    @collaborator_user = User.find(@collaborator.user_id)
+    def destroy
+        @wiki = Wiki.find(params[:wiki_id])
+        @collaborator = Collaborator.find(params[:id])
+        @collaborator_user = User.find(@collaborator.user_id)
 
-    if @collaborator.destroy
-      flash[:notice] = "#{@collaborator_user.email} was removed as a collaborator."
-      redirect_to edit_wiki_path(@wiki)
-    else
-      flash[:alert] = "There was an error removing this collaborator. Please try again."
-      redirect_to edit_wiki_path(@wiki)
+        if @collaborator.destroy
+          flash[:notice] = "Collaborator was deleted."
+          redirect_to @wiki
+        else
+          flash.now[:alert] = "There was an error deleting the collaborator."
+          redirect_to @wiki
+        end
+      end
     end
-  end
-end
