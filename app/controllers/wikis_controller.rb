@@ -1,27 +1,31 @@
 class WikisController < ApplicationController
   include ApplicationHelper
+  before_action :authenticate_user!, :except => [:index]
+
   def index
      @wikis = Wiki.all
   end
 
   def show
     @wiki = Wiki.find(params[:id])
-
   end
 
   def new
    @wiki = Wiki.new
+   authorize @wiki
   end
 
   def edit
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def update
     @wiki = Wiki.find(params[:id])
     @wiki.assign_attributes(wiki_params)
+    authorize @wiki
 
-    if @wiki.save
+    if @wiki.update(wiki_params)
       flash[:notice] = "Wiki was updated."
       redirect_to @wiki
     else
@@ -32,9 +36,11 @@ class WikisController < ApplicationController
 
   def create
     @wiki = Wiki.new(wiki_params)
+    @wiki.assign_attributes(wiki_params)
+    authorize @wiki
 
     if @wiki.save
-      flash[:notice] = "Wiki was saved."
+      flash[:notice] = "Your wiki was saved successfully."
       redirect_to @wiki
     else
       flash.now[:alert] = "There was an error saving the wiki. Please try again."
@@ -44,6 +50,8 @@ class WikisController < ApplicationController
 
   def destroy
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
+
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
       redirect_to wikis_path
@@ -55,8 +63,7 @@ class WikisController < ApplicationController
 
   private
 
-      def wiki_params
-        params.require(:wiki).permit(:title, :body)
-      end
-
+  def wiki_params
+    params.require(:wiki).permit(:title, :body)
+  end
 end
