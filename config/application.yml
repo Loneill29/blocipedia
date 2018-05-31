@@ -4,6 +4,7 @@
 # pusher_key: 7381a978f7dd7f9a1117
 # pusher_secret: abdc3b896a0ffb85d373
 # stripe_api_key: sk_test_2J0l093xOyW72XUYJHE4Dv2r
+<<<<<<< HEAD
 # stripe_publishable_key: pk_test_ro9jV5SNwGb1yYlQfzG17LHK
 #
 # production:
@@ -12,3 +13,12 @@ SENDGRID_USERNAME: oneill.lindamichelle@gmail.com
 SENDGRID_PASSWORD: Mookie*99
 stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
+=======
+ #stripe_publishable_key: pk_test_ro9jV5SNwGb1yYlQfzG17LHK
+#
+# production:
+  stripe_secret_key: sk_test_rqUbPLfiaboQE6azrBIkwGZK
+  stripe_publishable_key: pk_test_nSYYmqQvftYyHbv6XfIeZ1g4
+SENDGRID_USERNAME: Linda21
+SENDGRID_PASSWORD: Pa$$word
+>>>>>>> seeding-data
