@@ -5,6 +5,13 @@ require 'random_data'
   password: Faker::Internet.password(8)
   )
 end
+
+premium = User.create!(
+  email:    'premium2@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  role:     'premium'
+)
 users = User.all
 
 50.times do
@@ -15,7 +22,7 @@ users = User.all
    )
  end
  wikis = Wiki.all
- 
+
  puts "Seed finished"
  puts "#{Wiki.count} wikis created"
  puts "#{User.count} users created"

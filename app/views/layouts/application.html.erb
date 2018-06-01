@@ -22,6 +22,10 @@
         <li><%= link_to "Blocepedia", root_path %></li>
         <li><%= link_to "About", about_path %></li>
         <li><%= link_to "Wikis", wikis_path %></li>
+        <% if user_signed_in? && current_user.role == 'standard' %>
+        <li><%= link_to "Upgrade to Premium", new_charge_path%></li>
+        <%end%>
+      </div>
       </ul>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>

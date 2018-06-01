@@ -3,7 +3,12 @@ class WikisController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
 
   def index
-     @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)  
+    if current_user.standard?
+      @wikis = Wiki.where(:private => false)
+    else
+      @wikis = Wiki.all
+    end
   end
 
   def show
@@ -36,6 +41,7 @@ class WikisController < ApplicationController
 
   def create
     @wiki = Wiki.new(wiki_params)
+    @wiki.user = current_user
     @wiki.assign_attributes(wiki_params)
     authorize @wiki
 
@@ -64,6 +70,6 @@ class WikisController < ApplicationController
   private
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body)
+    params.require(:wiki).permit(:title, :body, :private)
   end
 end

@@ -44,9 +44,9 @@ def new
          flash[:notice] = "Your account has been downgraded to standard."
          current_user.role = 'standard'
          current_user.save!
-   redirect_to new_charge_path
- end
- end
+         redirect_to new_charge_path
+       end
+     end
 
  private
 
