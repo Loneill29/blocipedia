@@ -1,0 +1,8 @@
+%h1 All Wikis
+.col-md-4
+  = link_to "New Wiki", new_wiki_path, class: 'btn btn-success'
+- @wikis.each do |wiki|
+  .media
+    .media-body
+      %h4.media-heading
+      %p= link_to wiki.title, wiki

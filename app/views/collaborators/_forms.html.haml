@@ -1,0 +1,12 @@
+.form-group
+  - if current_user.premium? || current_user.admin?
+    .col-md-8
+      %h3 Add Collaborators
+      = form_for [@wiki, Collaborator.new] do |c|
+        = email_field_tag :collaborator
+        = c.submit "Add collaborator", class: 'btn btn-primary'
+      %h3 Manage Collaborators
+      - wiki.collaborators.each do |c|
+        - user = User.find(c.user_id)
+        = user.email
+        = link_to "Delete", wiki_collaborator_path(@wiki, c), class: 'btn btn-danger', method: :delete
