@@ -2,13 +2,12 @@ class User < ApplicationRecord
 
   has_many :wikis, dependent: :destroy
   has_many :collaborators, dependent: :destroy
+  has_many :collaborations, dependent: :destroy
 
   before_save { self.email = email.downcase if email.present? }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
-
-  has_many :wikis, dependent: :destroy
 
   validates :password, length: { minimum: 6 }, allow_blank: true
 

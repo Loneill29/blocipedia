@@ -17,8 +17,8 @@ users = User.all
 50.times do
    Wiki.create!(
      user:   users.sample,
-     title:  Faker::Friends.character,
-     body:   Faker::Friends.quote
+     title:  Faker::Coffee.blend_name,
+     body:   Faker::Coffee.notes
    )
  end
  wikis = Wiki.all

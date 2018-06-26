@@ -2,7 +2,7 @@ class WikisController < ApplicationController
   include ApplicationHelper
   before_action :authenticate_user!, :except => [:index]
 
-  def index  
+  def index
     if current_user.standard?
       @wikis = Wiki.where(:private => false)
     else
