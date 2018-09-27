@@ -1,2 +1,50 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body {
+  background: url(text-background.jpg);
+  background-size: cover;
+  z-index: -1;
+  color: #ffff;
+}
+
+a {
+  color: black;
+}
+.title {
+  text-align: center;
+  font-size: 100px;
+  margin-top: 140px;
+  color: white;
+  font-family: 'Bad Script', cursive;
+}
+
+.point {
+  text-align: center;
+  padding-right: 40px;
+  padding-left: 40px;
+  font-size: 30px;
+  color: white;
+  font-family: 'Patrick Hand', sans-serif;
+}
+
+.homepage {
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+.user {
+  padding-top: 10px;
+  float: right;
+  padding-right: 10px;
+  color: #2a2735;
+  padding-top: 20px;
+}
+
+.nav {
+  color: #2a2735;
+  border: 0px;
+  margin-left: -60px;
+  padding-top: 20px;
+}
